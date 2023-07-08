@@ -34,7 +34,11 @@ class NotificationWorker(applicationContext: Context, params: WorkerParameters) 
 
                 val pendingIntent = TaskStackBuilder.create(applicationContext).run {
                     addNextIntentWithParentStack(detailIntent)
-                    getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                        getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                    }else{
+                        getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+                    }
                 }
 
                 val notificationManagerCompat =
