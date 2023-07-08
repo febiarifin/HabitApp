@@ -42,16 +42,16 @@ class NotificationWorker(applicationContext: Context, params: WorkerParameters) 
 
                 val builder = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notifications)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setContentIntent(pendingIntent)
                     .setContentTitle(habitTitle)
                     .setContentText(applicationContext.getString(R.string.notify_content))
                     .setAutoCancel(true)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setContentIntent(pendingIntent)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     val channel = NotificationChannel(
                         NOTIFICATION_CHANNEL_ID,
-                        "channelName",
+                        "habitNotification",
                         NotificationManager.IMPORTANCE_DEFAULT
                     )
                     builder.setChannelId(NOTIFICATION_CHANNEL_ID)
